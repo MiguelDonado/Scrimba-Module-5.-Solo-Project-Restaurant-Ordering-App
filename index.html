@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant App</title>
+    <link rel="stylesheet" href="styles.css">
+    <!--FONT FAMILY-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="width-container">
+            <img src="images/header.png" alt="Logo and motto of a burger restaurant" class="header-img">        
+        </div>
+    </header>
+    <main>
+        <section class="menu" id="menu"></section>
+        <section class="order" id="order">
+            <div class="width-container-order">
+                <h3>Your order</h3>
+                <div class="product-order-container">
+                    <div class="product-order">
+                        <h4 class="product-title-order">Pizza</h4>
+                        <p>remove</p>
+                        <h4 class="product-price-order">$14</h4>
+                    </div>
+                    <div class="product-order">
+                        <h4 class="product-title-order">Beer</h4>
+                        <p>remove</p>
+                        <h4 class="product-price-order">$10</h4>
+                    </div>
+                </div>
+                <div class="total-price-order">
+                    <h2>Total price:</h2>
+                    <h4 class="product-price-order">$24</h4>
+                </div>
+                <button>Complete order</button>
+            </div> 
+        </section>
+        <section class="modal">
+            <div class="modal-container">
+                <div class="title-modal">
+                    <h3>Enter card details</h3>
+                </div>
+                <form class="form-modal">
+                    <input type="text" name="name" placeholder="Enter your name">
+                    <input type="text" name="card" placeholder="Enter card number">
+                    <input type="text" name="cvv" placeholder="Enter CVV">
+                    <input type="submit" value="Pay">
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="index.js" type="module"></script>
+</body>
+</html>
