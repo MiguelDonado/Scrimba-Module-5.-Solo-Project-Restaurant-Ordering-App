@@ -20,7 +20,7 @@ body{
 
 /* MENU ITEMS SECTION */
 
-.menu, .order{
+.menu, .order, .thanks-completed{
     padding: 20px 10px 0 20px;
 }
 
@@ -149,6 +149,8 @@ body{
     transform: scale(0.97);
 }
 
+/*MODAL*/
+
 .modal{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -193,4 +195,19 @@ form input[type="submit"]{
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
+}
+
+/*THANKS*/
+
+.width-container-thanks{
+    width: 505px;
+    margin: 50px auto;
+    padding: 20px 0;
+    background-color: #ECFDF5;
+    color: #065F46;
+    text-align: center;
+}
+.width-container-thanks > h2{
+    font-size: 26px;
+    font-weight: 400;
 }
