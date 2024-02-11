@@ -143,6 +143,7 @@ body{
     padding: 15px;
     border-radius: 3px;
     border: none;
+    display: none;
 }
 
 .width-container-order > button:active {

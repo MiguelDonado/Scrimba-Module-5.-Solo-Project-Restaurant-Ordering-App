@@ -1,6 +1,55 @@
 import { menuArray } from './data.js'
 
 const menuEl = document.getElementById('menu')
+const orderEl = document.getElementById('order')
+
+let productsOrder = []
+
+document.addEventListener('click',function(e){
+    if (e.target.dataset.add){
+        addProductToOrder(e.target.dataset.add)
+        renderOrder(productsOrder)
+    } 
+})
+
+function addProductToOrder(productName){
+    const targetProduct = menuArray.filter(item => item.name === productName)
+    productsOrder.push(targetProduct[0])
+}
+
+
+function renderOrder(productsToRenderOrder){
+    const productsToRenderOrderHtml = generateProductsToRenderOrderHtml(productsToRenderOrder)
+    const totalPrice = calculateTotalPriceOrder(productsToRenderOrder)
+    orderEl.innerHTML = `
+        <div class="width-container-order">
+            <h3>Your order</h3>
+            <div class="product-order-container" id="product-order-container"></div>
+            <div class="total-price-order">
+                <h2>Total price:</h2>
+                <h4 class="product-price-order">$${totalPrice}</h4>
+            </div>
+            <button>Complete order</button>
+        </div> 
+    `
+    document.getElementById("product-order-container").innerHTML = productsToRenderOrderHtml
+}
+
+function generateProductsToRenderOrderHtml(productsArray){
+    return productsArray.map( product => {
+        return `
+        <div class="product-order">
+            <h4 class="product-title-order">${product.name}</h4>
+            <p>remove</p>
+            <h4 class="product-price-order">$${product.price}</h4>
+        </div>
+        `
+    }).join('')
+}
+
+function calculateTotalPriceOrder(productsArray){
+    return productsArray.reduce((total,currentElement)=> total + currentElement.price,0)
+}
 
 function renderMenu(menuItems){
     return menuItems.map( menuItem => {
@@ -16,11 +65,11 @@ function renderMenu(menuItems){
                         <p class="menu-item-ingredients">${menuItem.ingredients.join(", ")}</p>
                         <h4 class="menu-item-price">\$${menuItem.price}</h4>
                     </div>
-                    <button class="add-btn">+</button>
+                    <button class="add-btn" id="add-btn" data-add="${menuItem.name}">+</button>
                 </div>
             </div>
         </div>
-    </section>`
+   `
     }).join('')
 }
 
