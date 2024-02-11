@@ -21,30 +21,23 @@
     </header>
     <main>
         <section class="menu" id="menu"></section>
-        <!--<section class="thanks-completed">
-            <div class="width-container">
-                <div class="width-container-thanks">
-                    <h2>Thanks, James! Your order is on its way</h2>
-                </div>
-            </div>
-        </section>-->
-
+        <section class="thanks-completed" id="thanks-completed"></section>
         <section class="order" id="order"></section>
         <section class="modal">
             <div class="modal-container" id="modal-container">
                 <div class="title-modal">
                     <h3>Enter card details</h3>
                 </div>
-                <form class="form-modal">
-                    <input type="text" name="name" placeholder="Enter your name" required>
-                    <input type="text" name="card" placeholder="Enter card number" required>
-                    <input type="text" name="cvv" placeholder="Enter CVV" required>
-                    <input type="submit" value="Pay">
+                <form class="form-modal" id="form-modal">
+                    <input type="text" name="name" id="name" placeholder="Enter your name">
+                    <input type="text" name="card" id="card" placeholder="Enter card number">
+                    <input type="text" name="cvv" id="cvv" placeholder="Enter CVV">
+                    <input type="submit" value="Pay" id="submit-btn">
                 </form>
             </div>
         </section>
     </main>
-    <!--<div class="backdrop"></div>-->
+    <div class="backdrop" id="backdrop"></div>
     <script src="index.js" type="module"></script>
 </body>
 </html>

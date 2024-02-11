@@ -3,15 +3,27 @@ import { menuArray } from './data.js'
 const menuEl = document.getElementById('menu')
 const orderEl = document.getElementById('order')
 const modalContainerEl = document.getElementById('modal-container')
+const backdropEl = document.getElementById('backdrop')
+const thanksCompletedEl = document.getElementById('thanks-completed')
+const formModalEl = document.getElementById('form-modal')
 
 let productsOrder = []
 
 document.addEventListener('click',function(e){
     if (e.target.dataset.add){
+        if (thanksCompletedEl){
+            thanksCompletedEl.innerHTML=``
+        }
         addProductToOrder(e.target.dataset.add)
         renderOrder(productsOrder)
     }else if (e.target.id === 'complete-order-btn'){
         renderModal()
+    }else if (e.target.id === 'submit-btn'){
+        if (manageSubmitForm(e)){
+            e.target.form.reset()
+        }
+    }else if (e.target.dataset.remove){
+        removeProductOrder(e.target.dataset.remove)
     }
 })
 
@@ -42,7 +54,7 @@ function generateProductsToRenderOrderHtml(productsArray){
         return `
         <div class="product-order">
             <h4 class="product-title-order">${product.name}</h4>
-            <p>remove</p>
+            <p data-remove="${product.name}">remove</p>
             <h4 class="product-price-order">$${product.price}</h4>
         </div>
         `
@@ -55,7 +67,75 @@ function calculateTotalPriceOrder(productsArray){
 
 function renderModal(){
     modalContainerEl.style.display = 'flex'
+    backdropEl.style.display = 'flex'
 }
+
+function manageSubmitForm(e){
+    e.preventDefault()
+    if (!validateInputFields()){
+        return
+    }
+    deactivateModal()
+    deactivateOrder()
+    const formModalData = new FormData(formModalEl)
+    const name = formModalData.get('name')
+    thanksMessage(name)
+    productsOrder = []
+    return 1
+}
+
+function validateInputFields(){
+    const nameEl = document.getElementById('name')
+    const cardEl = document.getElementById('card')
+    const cvvEl = document.getElementById('cvv')
+    const cardPattern = /^\d{16}$/
+    const cvvPattern = /^\d{3}$/
+    
+    if (!nameEl.value){
+        alert('Name is required')
+        return
+    }
+    if (!cardEl.value || !cardPattern.test(cardEl.value)){
+        alert('Card number must be 16 digits')
+        return
+    }
+    if (!cvvEl.value || !cvvPattern.test(cvvEl.value)){
+        alert('CVV must be 3 digits')
+        return
+    }
+    return 1
+}
+
+function deactivateModal(){
+    modalContainerEl.style.display = 'none'
+    backdropEl.style.display = 'none'
+}
+
+function deactivateOrder(){
+    orderEl.innerHTML=``
+}
+function thanksMessage(name){
+    const thanksCompletedHtml = `
+    <div class="width-container">
+        <div class="width-container-thanks">
+            <h2>Thanks, ${name}. Your order is on its way</h2>
+        </div>
+    </div>
+    `
+    thanksCompletedEl.innerHTML = thanksCompletedHtml
+}
+
+function removeProductOrder(productName){
+    const index = productsOrder.findIndex(productOrder => productOrder.name === productName)
+    productsOrder.splice(index, 1)
+    if (productsOrder.length > 0){
+        renderOrder(productsOrder)
+    }else {
+        orderEl.innerHTML=``
+    }
+
+}
+
 function renderMenu(menuItems){
     return menuItems.map( menuItem => {
         return `
@@ -70,7 +150,7 @@ function renderMenu(menuItems){
                         <p class="menu-item-ingredients">${menuItem.ingredients.join(", ")}</p>
                         <h4 class="menu-item-price">\$${menuItem.price}</h4>
                     </div>
-                    <button class="add-btn" id="add-btn" data-add="${menuItem.name}">+</button>
+                    <button id="add-btn" data-add="${menuItem.name}">+</button>
                 </div>
             </div>
         </div>
