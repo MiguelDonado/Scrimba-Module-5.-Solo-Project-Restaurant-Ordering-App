@@ -2,6 +2,7 @@ import { menuArray } from './data.js'
 
 const menuEl = document.getElementById('menu')
 const orderEl = document.getElementById('order')
+const modalContainerEl = document.getElementById('modal-container')
 
 let productsOrder = []
 
@@ -9,14 +10,15 @@ document.addEventListener('click',function(e){
     if (e.target.dataset.add){
         addProductToOrder(e.target.dataset.add)
         renderOrder(productsOrder)
-    } 
+    }else if (e.target.id === 'complete-order-btn'){
+        renderModal()
+    }
 })
 
 function addProductToOrder(productName){
     const targetProduct = menuArray.filter(item => item.name === productName)
     productsOrder.push(targetProduct[0])
 }
-
 
 function renderOrder(productsToRenderOrder){
     const productsToRenderOrderHtml = generateProductsToRenderOrderHtml(productsToRenderOrder)
@@ -29,7 +31,7 @@ function renderOrder(productsToRenderOrder){
                 <h2>Total price:</h2>
                 <h4 class="product-price-order">$${totalPrice}</h4>
             </div>
-            <button>Complete order</button>
+            <button id="complete-order-btn">Complete order</button>
         </div> 
     `
     document.getElementById("product-order-container").innerHTML = productsToRenderOrderHtml
@@ -51,6 +53,9 @@ function calculateTotalPriceOrder(productsArray){
     return productsArray.reduce((total,currentElement)=> total + currentElement.price,0)
 }
 
+function renderModal(){
+    modalContainerEl.style.display = 'flex'
+}
 function renderMenu(menuItems){
     return menuItems.map( menuItem => {
         return `
